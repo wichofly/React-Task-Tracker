@@ -26,13 +26,30 @@ const App = () => {
   }
 
   // Add Task
-  const addTask = (task) => {
-    // give me a ramdon number for id
-    const id = Math.floor(Math.random() * 10000) + 1;
-    // This newTask is a object with the new id and we are copying whatever teh task text, day and reminder wich is passed here "const addTask = (task)", we are adding that to the object as well.
-    const newTask = { id, ...task };
-    // we are cpying the current tasks that are already there "const [tasks, setTasks] = useState" but the we also want to add the newTask
-    setTasks([...tasks, newTask]);
+  const addTask = async (task) => {
+    const res = await fetch(`http://localhost:5000/tasks`, {
+      // we are adding data so we need to add headers beacuse we need to specify Content Type
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      // it tunrs it from  javascript object into a json string
+      body: JSON.stringify(task)
+    })
+
+    // the data that returns is the new task added
+    const data = await res.json()
+
+    setTasks([...tasks, data])
+
+    // We do not need the code below cause json creates an id for us
+
+    // // give me a ramdon number for id
+    // const id = Math.floor(Math.random() * 10000) + 1;
+    // // This newTask is a object with the new id and we are copying whatever teh task text, day and reminder wich is passed here "const addTask = (task)", we are adding that to the object as well.
+    // const newTask = { id, ...task };
+    // // we are cpying the current tasks that are already there "const [tasks, setTasks] = useState" but the we also want to add the newTask
+    // setTasks([...tasks, newTask]);
   };
 
   // Delete Task
