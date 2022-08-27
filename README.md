@@ -18,7 +18,7 @@ You may also see any lint errors in the console.
 
 Runs json.server. We need to have to terminals in orders to run the app on localhost
 
-### `npm test`
+### `npm test`git
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
