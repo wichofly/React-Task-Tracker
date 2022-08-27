@@ -4,7 +4,7 @@ import Tasks from './components/Tasks';
 import AddTask from './components/AddTask';
 
 const App = () => {
-  const [showAddTask, setShowAddTask] = useState (false)
+  const [showAddTask, setShowAddTask] = useState(false);
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -29,11 +29,11 @@ const App = () => {
   // Add Task
   const addTask = (task) => {
     // give me a ramdon number for id
-    const id = Math.floor(Math.random() * 10000) + 1; 
+    const id = Math.floor(Math.random() * 10000) + 1;
     // This newTask is a object with the new id and we are copying whatever teh task text, day and reminder wich is passed here "const addTask = (task)", we are adding that to the object as well.
-    const newTask = { id, ...task } 
+    const newTask = { id, ...task };
     // we are cpying the current tasks that are already there "const [tasks, setTasks] = useState" but the we also want to add the newTask
-    setTasks([...tasks, newTask])
+    setTasks([...tasks, newTask]);
   };
 
   // Delete Task
@@ -56,10 +56,13 @@ const App = () => {
   return (
     <div className="container">
       {/* onAdd is passing as a prop on Headers */}
-      <Header onAdd={() => setShowAddTask(!showAddTask)} />
+      <Header
+        onAdd={() => setShowAddTask(!showAddTask)}
+        showAdd={showAddTask}
+      />
       {/* if showAddTask is true then show <AddTask onAdd={addTask} /> */}
       {/* && is a shorter way of doinga ternary wothout an else */}
-      { showAddTask && <AddTask onAdd={addTask} />}
+      {showAddTask && <AddTask onAdd={addTask} />}
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (
