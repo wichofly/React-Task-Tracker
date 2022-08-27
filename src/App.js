@@ -1,8 +1,12 @@
 // in order to load the data when the page loads we are using useEffect. It use to create side effects or deal with side effects. It is often use to if i want to something to happen the page loads.
 import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import Header from './components/Header';
 import Tasks from './components/Tasks';
 import AddTask from './components/AddTask';
+import Footer from './components/Footer';
+import About from './components/About';
 
 const App = () => {
   const [showAddTask, setShowAddTask] = useState(false);
@@ -10,8 +14,8 @@ const App = () => {
 
   useEffect(() => {
     const getTasks = async () => {
-      const tasksFromServer = await fetchTasks()
-      setTasks(tasksFromServer)
+      const tasksFromServer = await fetchTasks();
+      setTasks(tasksFromServer);
     };
 
     getTasks();
@@ -19,19 +23,19 @@ const App = () => {
 
   // Fetch Tasks
   const fetchTasks = async () => {
-    const res = await fetch('http://localhost:5000/tasks')
-    const data = await res.json()
+    const res = await fetch('http://localhost:5000/tasks');
+    const data = await res.json();
 
-    return data
-  }
+    return data;
+  };
 
-   // Fetch Task
-   const fetchTask = async (id) => {
-    const res = await fetch(`http://localhost:5000/tasks/${id}`)
-    const data = await res.json()
+  // Fetch Task
+  const fetchTask = async (id) => {
+    const res = await fetch(`http://localhost:5000/tasks/${id}`);
+    const data = await res.json();
 
-    return data
-  }
+    return data;
+  };
 
   // Add Task
   const addTask = async (task) => {
@@ -39,16 +43,16 @@ const App = () => {
       // we are adding data so we need to add headers beacuse we need to specify Content Type
       method: 'POST',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
       },
       // it tunrs it from  javascript object into a json string
-      body: JSON.stringify(task)
-    })
+      body: JSON.stringify(task),
+    });
 
     // the data that returns is the new task added
-    const data = await res.json()
+    const data = await res.json();
 
-    setTasks([...tasks, data])
+    setTasks([...tasks, data]);
 
     // We do not need the code below cause json creates an id for us
 
@@ -65,28 +69,28 @@ const App = () => {
   const deleteTask = async (id) => {
     await fetch(`http://localhost:5000/tasks/${id}`, {
       method: 'DELETE',
-    })
+    });
 
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
   // Toggle Reminder
   const toggleReminder = async (id) => {
-    const taskToToggle = await fetchTask(id)
-    const updTask = {...taskToToggle, reminder: !taskToToggle.reminder}
+    const taskToToggle = await fetchTask(id);
+    const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
 
     const res = await fetch(`http://localhost:5000/tasks/${id}`, {
       // we are updating data so we need to add headers beacuse we need to specify Content Type and the method is PUT
       method: 'PUT',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
       },
       // it tunrs it from  javascript object into a json string
-      body: JSON.stringify(updTask)
-    })
+      body: JSON.stringify(updTask),
+    });
 
     // the data that returns is the new task added
-    const data = await res.json()
+    const data = await res.json();
 
     // the only thing changed is the data.reminder beacuse the data that we get back is just the updated task
     setTasks(
@@ -105,21 +109,37 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      {/* onAdd is passing as a prop on Headers */}
-      <Header
-        onAdd={() => setShowAddTask(!showAddTask)}
-        showAdd={showAddTask}
-      />
-      {/* if showAddTask is true then show <AddTask onAdd={addTask} /> */}
-      {/* && is a shorter way of doinga ternary wothout an else */}
-      {showAddTask && <AddTask onAdd={addTask} />}
-      {tasks.length > 0 ? (
-        <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
-      ) : (
-        'No Tasks'
-      )}
-    </div>
+    <Router>
+      <div className="container">
+        <Route
+          path="/"
+          exact // make its own view
+          render={(props) => (
+            <>
+              {/* onAdd is passing as a prop on Headers */}
+              <Header
+                onAdd={() => setShowAddTask(!showAddTask)}
+                showAdd={showAddTask}
+              />
+              {/* if showAddTask is true then show <AddTask onAdd={addTask} /> */}
+              {/* && is a shorter way of doinga ternary wothout an else */}
+              {showAddTask && <AddTask onAdd={addTask} />}
+              {tasks.length > 0 ? (
+                <Tasks
+                  tasks={tasks}
+                  onDelete={deleteTask}
+                  onToggle={toggleReminder}
+                />
+              ) : (
+                'No Tasks'
+              )}
+            </>
+          )}
+        />
+        <Route path="/about" component={About} />
+        <Footer />
+      </div>
+    </Router>
   );
 };
 
