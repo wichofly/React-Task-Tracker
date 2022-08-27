@@ -25,6 +25,14 @@ const App = () => {
     return data
   }
 
+   // Fetch Task
+   const fetchTask = async (id) => {
+    const res = await fetch(`http://localhost:5000/tasks/${id}`)
+    const data = await res.json()
+
+    return data
+  }
+
   // Add Task
   const addTask = async (task) => {
     const res = await fetch(`http://localhost:5000/tasks`, {
@@ -63,14 +71,37 @@ const App = () => {
   };
 
   // Toggle Reminder
-  const toggleReminder = (id) => {
-    // where the task id is equal to the id that is passed in then we are having a specific object else it is just going to be the task, no changed.
-    // inside the object (the one we are dealing with) i want to copy or spread acorss (...) all of the task properties an values but i want to change the reminder.The reminder is going to set to the opposite of whatever the specific task reminder is.
+  const toggleReminder = async (id) => {
+    const taskToToggle = await fetchTask(id)
+    const updTask = {...taskToToggle, reminder: !taskToToggle.reminder}
+
+    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+      // we are updating data so we need to add headers beacuse we need to specify Content Type and the method is PUT
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      // it tunrs it from  javascript object into a json string
+      body: JSON.stringify(updTask)
+    })
+
+    // the data that returns is the new task added
+    const data = await res.json()
+
+    // the only thing changed is the data.reminder beacuse the data that we get back is just the updated task
     setTasks(
       tasks.map((task) =>
-        task.id === id ? { ...task, reminder: !task.reminder } : task
+        task.id === id ? { ...task, reminder: data.reminder } : task
       )
     );
+
+    // where the task id is equal to the id that is passed in, then we are having a specific object, else it is just going to be the task, no changed.
+    // inside the object (the one we are dealing with) i want to copy or spread acorss (...) all of the task properties an values but i want to change the reminder. The reminder is going to set to the opposite of whatever the specific task reminder is.
+    // setTasks(
+    //   tasks.map((task) =>
+    //     task.id === id ? { ...task, reminder: !task.reminder } : task
+    //   )
+    // );
   };
 
   return (

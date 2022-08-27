@@ -2,21 +2,27 @@
   "tasks": [
     {
       "id": 1,
-      "text": "'Clean the bathroom'",
+      "text": "Clean the bathroom",
       "day": "'Feb 5th at 3:00pm'",
       "reminder": true
     },
     {
       "id": 2,
-      "text": "'Dentist appo'",
+      "text": "Dentist appo",
       "day": "'Feb 6th at 3:00pm'",
-      "reminder": true
+      "reminder": false
     },
     {
       "text": "Buy cat food",
       "day": "today",
       "reminder": true,
       "id": 3
+    },
+    {
+      "text": "JS test",
+      "day": "Tuesday 5th September, 5pm",
+      "reminder": false,
+      "id": 4
     }
   ]
 }
