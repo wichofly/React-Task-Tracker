@@ -25,14 +25,16 @@ const App = () => {
   ]);
 
   // Delete Task
+  // I do not want to show the task with the id because we are deleting it in the UI
   const deleteTask = (id) => {
-    console.log('delete', id)
+    // console.log('delete', id)
+   setTasks(tasks.filter((task) => task.id !== id))
   }
 
   return (
     <div className="container">
       <Header />
-      <Tasks tasks={tasks} />
+      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} /> : 'No Tasks'}
     </div>
   );
 };
