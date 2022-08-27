@@ -18,6 +18,10 @@ You may also see any lint errors in the console.
 
 Runs json.server. We need to have to terminals in orders to run the app on localhost
 
+### `npm run deploy`
+
+This will push the changes to the "gh-pages" branch in the repository
+
 ### `npm test`git
 
 Launches the test runner in the interactive watch mode.\
