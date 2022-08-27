@@ -27,14 +27,28 @@ const App = () => {
   // Delete Task
   // I do not want to show the task with the id because we are deleting it in the UI
   const deleteTask = (id) => {
-    // console.log('delete', id)
-   setTasks(tasks.filter((task) => task.id !== id))
-  }
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  // Toggle Reminder
+  const toggleReminder = (id) => {
+    // where the task id is equal to the id that is passed in then we are having a specific object else it is just going to be the task, no changed.
+    // inside the object (the one we are dealing with) i want to copy or spread acorss (...) all of the task properties an values but i want to change the reminder.The reminder is going to set to the opposite of whatever the specific task reminder is.
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      )
+    );
+  };
 
   return (
     <div className="container">
       <Header />
-      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} /> : 'No Tasks'}
+      {tasks.length > 0 ? (
+        <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
+      ) : (
+        'No Tasks'
+      )}
     </div>
   );
 };
