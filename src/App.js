@@ -111,16 +111,16 @@ const App = () => {
   return (
     <Router>
       <div className="container">
+        {/* onAdd is passing as a prop on Headers */}
+        <Header
+          onAdd={() => setShowAddTask(!showAddTask)}
+          showAdd={showAddTask}
+        />
         <Route
           path="/"
           exact // make its own view
           render={(props) => (
             <>
-              {/* onAdd is passing as a prop on Headers */}
-              <Header
-                onAdd={() => setShowAddTask(!showAddTask)}
-                showAdd={showAddTask}
-              />
               {/* if showAddTask is true then show <AddTask onAdd={addTask} /> */}
               {/* && is a shorter way of doinga ternary wothout an else */}
               {showAddTask && <AddTask onAdd={addTask} />}
