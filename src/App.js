@@ -73,3 +73,11 @@ const App = () => {
 };
 
 export default App;
+
+// How woudl I build my static assets if I am ready to deploy?
+// npm run buil. Ceates a optimized production build in a folder call "build". 
+// That's gonna be my static assets, is what i would deploy.
+// React does not deploy component folder but build folder, build is whats pusehd to production
+
+// npm i serve. It is a basic http server
+// serve -s build -p 8000
