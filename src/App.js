@@ -1,4 +1,5 @@
-import { useState } from 'react';
+// in order to load the data when the page loads we are using useEffect. It use to create side effects or deal with side effects. It is often use to if i want to something to happen the page loads.
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Tasks from './components/Tasks';
 import AddTask from './components/AddTask';
@@ -6,6 +7,23 @@ import AddTask from './components/AddTask';
 const App = () => {
   const [showAddTask, setShowAddTask] = useState(false);
   const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+    };
+
+    getTasks();
+  }, []);
+
+  // Fetch Tasks
+  const fetchTasks = async () => {
+    const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+
+    return data
+  }
 
   // Add Task
   const addTask = (task) => {
@@ -56,7 +74,7 @@ const App = () => {
 export default App;
 
 // How woudl I build my static assets if I am ready to deploy?
-// npm run buil. Ceates a optimized production build in a folder call "build". 
+// npm run buil. Ceates a optimized production build in a folder call "build".
 // That's gonna be my static assets, is what i would deploy.
 // React does not deploy component folder but build folder, build is whats pusehd to production
 
