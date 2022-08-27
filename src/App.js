@@ -81,3 +81,5 @@ export default App;
 
 // npm i serve. It is a basic http server
 // serve -s build -p 8000
+
+// npm i json-server. mock data
