@@ -11,6 +11,12 @@
       "day": "Sunday, 6pm",
       "reminder": true,
       "id": 4
+    },
+    {
+      "text": "Meet promo",
+      "day": "Monday, 5pm",
+      "reminder": true,
+      "id": 5
     }
   ]
 }

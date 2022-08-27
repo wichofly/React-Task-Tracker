@@ -117,7 +117,7 @@ const App = () => {
           showAdd={showAddTask}
         />
         <Route
-          path="/React-Task-Tracker/"
+          path="/"
           exact // make its own view
           render={(props) => (
             <>
