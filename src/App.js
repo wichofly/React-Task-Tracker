@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Header from './components/Header';
 import Tasks from './components/Tasks';
+import AddTask from './components/AddTask';
 
 const App = () => {
   const [tasks, setTasks] = useState([
@@ -24,6 +25,16 @@ const App = () => {
     },
   ]);
 
+  // Add Task
+  const addTask = (task) => {
+    // give me a ramdon number for id
+    const id = Math.floor(Math.random() * 10000) + 1; 
+    // This newTask is a object with the new id and we are copying whatever teh task text, day and reminder wich is passed here "const addTask = (task)", we are adding that to the object as well.
+    const newTask = { id, ...task } 
+    // we are cpying the current tasks that are already there "const [tasks, setTasks] = useState" but the we also want to add the newTask
+    setTasks([...tasks, newTask])
+  };
+
   // Delete Task
   // I do not want to show the task with the id because we are deleting it in the UI
   const deleteTask = (id) => {
@@ -44,6 +55,7 @@ const App = () => {
   return (
     <div className="container">
       <Header />
+      <AddTask onAdd={addTask} />
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (
