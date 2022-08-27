@@ -1,19 +1,22 @@
 {
-  "posts": [
+  "tasks": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "text": "'Clean the bathroom'",
+      "day": "'Feb 5th at 3:00pm'",
+      "reminder": true
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 2,
+      "text": "'Dentist appo'",
+      "day": "'Feb 6th at 3:00pm'",
+      "reminder": true
+    },
+    {
+      "id": 3,
+      "text": "'Make the soup'",
+      "day": "'Feb 7th at 3:00pm'",
+      "reminder": true
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
