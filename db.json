@@ -19,9 +19,9 @@
       "id": 3
     },
     {
-      "text": "JS test",
-      "day": "Tuesday 5th September, 5pm",
-      "reminder": false,
+      "text": "Soccer match",
+      "day": "Sunday, 6pm",
+      "reminder": true,
       "id": 4
     }
   ]
